@@ -1,25 +1,33 @@
 'use strict';
 
 const Router = require('express').Router();
-const Repository = require('../model/repository');
 const request = require('request-promise');
 
 // GET ALL REPOSITORIES
 Router.get('/api/repositories', (req, res) => {
-  let options = {
-    uri: 'https://api.github.com/repositories?since=1000',
-    headers: { 
-      'User-Agent': 'Request-Promise',
-    },
-    json: true,
-  };
+  const points = [ 1000, 1100, 1200, 1300, 1400, 1500, 1600 ];
+  const repoArr = [];
 
-  request(options)
-    .then((response) => {
-      return res.send({ response });
-    })
-    .catch(console.log); // tbd!
+  let promiseArr = points.map((point) => {
+    return request({
+      uri: `https://api.github.com/repositories?since=${point}`,
+      headers: { 'User-Agent': 'Request-Promise' },
+      json: true,
+    }).then((response) => {
+      response.forEach((repo) => {
+        if (repo.owner.login.startsWith('a') || repo.owner.login.startsWith('A')) {
+          repoArr.push(repo);
+        }
+      });
+      // return res.send(repoArr);
+    }).catch((error) => {
+      console.log(error.message); // Needs work
+    });
+  });
+
+  return Promise.all(promiseArr)
+    .then(() => console.log(repoArr))
+    .catch(() => console.log('womp'));
 });
-
 
 module.exports = Router;
