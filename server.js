@@ -8,7 +8,6 @@ const cors = require('cors');
 const app = express();
 const favicon = require('serve-favicon');
 
-const Repository = require('./model/repository.js');
 const repositoryRouter = require('./routes/repository-router.js');
 
 const PORT = process.env.PORT || 3000;
