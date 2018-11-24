@@ -1,0 +1,20 @@
+.card {
+  width: $cardWidth;
+  height: $cardHeight;
+  margin: 2px;
+  display: inline-block;
+  transition-duration: 1s;
+  position: relative;
+
+  #overlay {
+    position: absolute;
+    width: $cardWidth;
+    height: $cardHeight;
+  }
+}
+
+.card:hover {
+  #overlay {
+    background: $primary-color-overlay;
+  }
+}
