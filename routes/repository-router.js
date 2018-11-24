@@ -1,3 +1,5 @@
+'use strict';
+
 const Router = require('express').Router();
 const request = require('request-promise');
 const fs = require('fs');

@@ -7,6 +7,8 @@
     "no-underscore-dangle": "off",
     "no-console": "off",
     "no-return-assign": "off",
+    "strict": "off",
+    "no-multi-assign": "off",
     "class-methods-use-this": ["error", {
       "exceptMethods": [
         "render",
@@ -40,6 +42,7 @@
     "react"
   ],
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   }
 }

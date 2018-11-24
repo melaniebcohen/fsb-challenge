@@ -1,6 +1,5 @@
 'use strict';
 
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
@@ -9,7 +8,7 @@ const favicon = require('serve-favicon');
 
 const repositoryRouter = require('./routes/repository-router.js');
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.use(cors());
 app.use(repositoryRouter);
