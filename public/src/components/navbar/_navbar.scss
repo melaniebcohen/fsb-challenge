@@ -1,4 +1,18 @@
 .navbar {
   height: 45px;
   background: $primary-color;
+  
+  .navbar-brand {
+    color: #fff;
+  }
+
+  .navbar-brand:hover {
+    color: #fff;
+    cursor: default;
+  }
+
+  img {
+    height: 25px;
+    margin-right: 15px;
+  }
 }

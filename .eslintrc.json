@@ -2,24 +2,13 @@
   "extends": "airbnb-base",
   "rules": {
     "arrow-body-style": "off",
-    "global-require": "off",
-    "array-callback-return": "off",
-    "no-return-assign": "off",
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-    "linebreak-style": "off",
-    "no-multi-assign": "off",
-    "no-param-reassign": ["error", { "props": false }],
-    "no-trailing-spaces":"off",
-    "no-underscore-dangle": "off",
-    "strict": "off",
-    "no-plusplus": "off",
-    "func-names": ["error", "never"],
-    "consistent-return": "off",
-    "no-console": "off",
-    "max-len": ["error", 160],
-    "object-curly-newline": "off",
     "react/jsx-uses-react": "error", 
     "react/jsx-uses-vars": "error",
+    "no-underscore-dangle": "off",
+    "no-console": "off",
+    "no-return-assign": "off",
+    "strict": "off",
+    "no-multi-assign": "off",
     "class-methods-use-this": ["error", {
       "exceptMethods": [
         "render",
@@ -53,6 +42,7 @@
     "react"
   ],
   "env": {
-    "browser": true
+    "browser": true,
+    "jest": true
   }
 }

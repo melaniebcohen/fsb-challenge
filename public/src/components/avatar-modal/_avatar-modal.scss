@@ -1,5 +1,10 @@
 .modal-dialog {
   img {
-    border-radius: 50%;
+    border-radius: 3%;
+    border: 1px $primary-color solid;
+  }
+
+  strong {
+    font-weight: bold;
   }
 }

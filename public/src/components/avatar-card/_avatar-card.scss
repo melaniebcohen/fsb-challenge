@@ -5,6 +5,7 @@
   display: inline-block;
   transition-duration: 1s;
   position: relative;
+  flex-wrap: wrap;
 
   #overlay {
     position: absolute;
