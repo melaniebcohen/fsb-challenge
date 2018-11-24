@@ -1,36 +1,58 @@
 {
+  "extends": "airbnb-base",
+  "rules": {
+    "arrow-body-style": "off",
+    "global-require": "off",
+    "array-callback-return": "off",
+    "no-return-assign": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "linebreak-style": "off",
+    "no-multi-assign": "off",
+    "no-param-reassign": ["error", { "props": false }],
+    "no-trailing-spaces":"off",
+    "no-underscore-dangle": "off",
+    "strict": "off",
+    "no-plusplus": "off",
+    "func-names": ["error", "never"],
+    "consistent-return": "off",
+    "no-console": "off",
+    "max-len": ["error", 160],
+    "object-curly-newline": "off",
+    "react/jsx-uses-react": "error", 
+    "react/jsx-uses-vars": "error",
+    "class-methods-use-this": ["error", {
+      "exceptMethods": [
+        "render",
+        "getInitialState",
+        "getDefaultProps",
+        "getChildContext",
+        "componentWillMount",
+        "componentDidMount",
+        "componentWillReceiveProps",
+        "shouldComponentUpdate",
+        "componentWillUpdate",
+        "componentDidUpdate",
+        "componentWillUnmount"
+      ]
+    }]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "globals": {
+    "__DEBUG__": true,
+    "__API_URL__": true,
+    "document": true
+  },
   "plugins": [
     "react"
   ],
   "env": {
-    "browser": true,
-    "node": true,
-    "commonjs": true,
-    "jest": true,
-    "es6": true
-  },
-  "globals": {
-    "err": true,
-    "req": true,
-    "res": true,
-    "next": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 2017,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true,
-      "experimentalObjectRestSpread": true
-    }
-  },
-  "rules": {
-    "no-console": "off",
-    "indent": [ "error", 2 ],
-    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
-    "comma-dangle": ["error", "always-multiline"],
-    "semi": [ "error", "always" ],
-    "linebreak-style": ["error", "unix"],
-    "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error"
+    "browser": true
   }
 }
