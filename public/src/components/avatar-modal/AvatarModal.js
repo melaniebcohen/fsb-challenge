@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import Modal from 'react-bootstrap/lib/Modal';
 import Button from 'react-bootstrap/lib/Button';
 import Container from 'react-bootstrap/lib/Container';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+
 import { followersFetchRequest } from '../../actions/repositories-fetch';
 import 'react-bootstrap/lib/ModalHeader';
 
@@ -21,15 +23,15 @@ class AvatarModal extends Component {
 
     followersFetch(repository.ownerLogin)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         this.setState({ user: res });
       });
   }
 
   render() {
     const { show, repository, onHide } = this.props;
+    const { user } = this.state;
 
-    console.log(this.state);
     return (
       <Modal 
         show={show} 
@@ -50,8 +52,13 @@ class AvatarModal extends Component {
               </Col>
               <Col xs={9} md={9}>
                 <ul>
-                  <li>{repository.ownerId}</li>
-                  <li>{this.state.followers}</li>
+                  <li>Name: {user.name}</li>
+                  <li>Company: {user.company}</li>
+                  <li>Followers: {user.followers}</li>
+                  <li>Following: {user.following}</li>
+                  <li>Location: {user.location}</li>
+                  <li>Public Repos: {user.public_repos}</li>
+
                 </ul>
               </Col>
             </Row>

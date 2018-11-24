@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import AvatarCard from '../avatar-card/AvatarCard';
 import { repositoriesFetchRequest } from '../../actions/repositories-fetch';
+import AvatarCard from '../avatar-card/AvatarCard';
 
 class AvatarList extends Component {
   constructor(props) {
@@ -9,27 +9,6 @@ class AvatarList extends Component {
     this.state = {
       repositories: [],
     };
-    this.eliminateDuplicates = this.eliminateDuplicates.bind(this);
-  }
-
-  // componentDidMount() {
-  //   return this.props.repositoriesFetch();
-  // }
-
-  // componentDidUpdate(prevProps) {
-  //   this.props.repositories !== prevProps.repositories
-  //     ? this.setState({ repositories: this.props.repositories })
-  //     : null;
-  // }
-
-  eliminateDuplicates() {
-    // const { repositories } = this.state;
-
-    // repositories.forEach((repo) => {
-    //   console.log(repo.id)
-    // })
-
-
   }
 
   render() {
