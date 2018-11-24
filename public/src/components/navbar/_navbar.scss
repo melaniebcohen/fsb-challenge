@@ -1,4 +1,13 @@
 .navbar {
   height: 45px;
   background: $primary-color;
+  
+  .navbar-brand {
+    color: #fff;
+  }
+
+  img {
+    height: 25px;
+    margin-right: 15px;
+  }
 }

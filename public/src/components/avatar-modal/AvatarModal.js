@@ -22,14 +22,14 @@ class AvatarModal extends Component {
     followersFetch(repository.ownerLogin)
       .then((res) => {
         console.log(res)
-        this.setState({ user: res })
+        this.setState({ user: res });
       });
   }
 
   render() {
     const { show, repository, onHide } = this.props;
 
-    console.log(this.state)
+    console.log(this.state);
     return (
       <Modal 
         show={show} 
@@ -38,7 +38,7 @@ class AvatarModal extends Component {
         aria-labelledby='contained-modal-title-vcenter'
         centered>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title id='contained-modal-title-vcenter'>
             {repository.ownerLogin}
           </Modal.Title>
         </Modal.Header>
