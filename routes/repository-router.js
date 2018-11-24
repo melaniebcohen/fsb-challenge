@@ -52,11 +52,12 @@ Router.get('/api/repositories', (req, res) => {
 
 Router.get('/api/followers/:userLogin', (req, res) => {
   return request({
-    uri: `https://api.github.com/users/${req.params.userLogin}/followers`,
+    uri: `https://api.github.com/users/${req.params.userLogin}`,
     headers: { 'User-Agent': 'Request-Promise' },
     json: true,
   }).then((response) => {
-    res.send({ length: `${response.length}` });
+    // console.log(response)
+    res.send(response);
   }).catch((error) => {
     // repoErr = error;
     console.log(error);

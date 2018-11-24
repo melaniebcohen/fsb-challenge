@@ -16,10 +16,11 @@ export const repositoriesFetchRequest = () => (dispatch) => {
     });
 };
 
-export const followersFetchRequest = (userLogin) => {
+export const followersFetchRequest = userLogin => () => {
   return superagent.get(`http://localhost:3000/api/followers/${userLogin}`)
     .set('Access-Control-Allow-Origin', '*')
     .then((res) => {
-      return res.body.length;
+      console.log(res.body)
+      return res.body;
     });
 };
