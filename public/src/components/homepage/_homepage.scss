@@ -1,9 +1,25 @@
 main {
   height: 100vh;
-
+  
+  .columns {
+    text-align: center;
+  }
+  
   .alert {
     text-align: center;
     width: 70%;
     margin: 15px auto;
   }
+
+  .btn, .btn-outline-primary {
+    color: $primary-color;
+    border-color: $primary-color;
+  }
+  
+  .btn:hover, .btn-outline-primary:hover {
+    background: $primary-color;
+    border-color: $primary-color;
+    color: #fff;
+  }
+
 };

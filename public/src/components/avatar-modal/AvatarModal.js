@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Container from 'react-bootstrap/lib/Container';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import Alert from 'react-bootstrap/lib/Alert';
 
 import { followersFetchRequest } from '../../actions/repositories-fetch';
 import 'react-bootstrap/lib/ModalHeader';
@@ -15,6 +16,8 @@ class AvatarModal extends Component {
     super(props);
     this.state = {
       user: '',
+      error: false,
+      errorText: '',
     };
   }
 
@@ -23,22 +26,24 @@ class AvatarModal extends Component {
 
     followersFetch(repository.ownerLogin)
       .then((res) => {
-        console.log(res);
         this.setState({ user: res });
+      })
+      .catch((err) => {
+        if (err.message && err.message.startsWith('API')) {
+          this.setState({
+            error: true,
+            errorText: 'API rate limit exceeded for your IP address.',
+          });
+        }
       });
   }
 
   render() {
     const { show, repository, onHide } = this.props;
-    const { user } = this.state;
+    const { user, error, errorText } = this.state;
 
     return (
-      <Modal 
-        show={show} 
-        onHide={onHide} 
-        size='lg' 
-        aria-labelledby='contained-modal-title-vcenter'
-        centered>
+      <Modal show={show} onHide={onHide} size='lg' aria-labelledby='contained-modal-title-vcenter' centered>
         <Modal.Header closeButton>
           <Modal.Title id='contained-modal-title-vcenter'>
             {repository.ownerLogin}
@@ -51,15 +56,19 @@ class AvatarModal extends Component {
                 <img src={repository.ownerAvatar} style={{ width: '100%' }}/>
               </Col>
               <Col xs={9} md={9}>
-                <ul>
-                  <li>Name: {user.name}</li>
-                  <li>Company: {user.company}</li>
-                  <li>Followers: {user.followers}</li>
-                  <li>Following: {user.following}</li>
-                  <li>Location: {user.location}</li>
-                  <li>Public Repos: {user.public_repos}</li>
-
-                </ul>
+                {error
+                  ? <Alert variant='warning'>{errorText}</Alert>
+                  : <ul>
+                    {user.name ? <li><strong>Name:</strong> {user.name}</li> : null}
+                    {user.company ? <li><strong>Company:</strong> {user.company}</li> : null}
+                    <li><strong>Followers:</strong> {user.followers}</li>
+                    <li><strong>Following:</strong> {user.following}</li>
+                    {user.location ? <li><strong>Location:</strong> {user.location}</li> : null}
+                    {user.public_repos
+                      ? <li><strong>Public Repos:</strong> {user.public_repos}</li>
+                      : null}
+                  </ul>
+                }
               </Col>
             </Row>
           </Container>

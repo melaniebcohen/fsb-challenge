@@ -1,5 +1,3 @@
-'use strict';
-
 const Router = require('express').Router();
 const request = require('request-promise');
 const fs = require('fs');
@@ -8,9 +6,12 @@ const path = require('path');
 const Repository = require('../lib/repoConstructor');
 const queryPoints = require('../lib/queryPoints');
 
+const _parseErr = (err) => {
+  return JSON.parse(err.message.split('- ')[1]).message;
+};
+
 // GET ALL REPOSITORIES
 Router.get('/api/repositories', (req, res) => {
-  // not the best solution... 
   const repoArr = [];
   let repoErr;
 
@@ -34,36 +35,39 @@ Router.get('/api/repositories', (req, res) => {
     .then(() => {
       if (repoErr) {
         const { statusCode } = repoErr;
-        const messageObj = JSON.parse(repoErr.message.split('- ')[1]).message;
 
-        return res.end(res.writeHead(statusCode, messageObj, { 'content-type': 'application/json' }));
+        return res.end(res.writeHead(statusCode, _parseErr(repoErr), { 'content-type': 'application/json' }));
       }
 
       const jsonArr = JSON.stringify(repoArr);
 
-      fs.writeFile('repositories.json', jsonArr, 'utf8', (file) => {
-        console.log('Successfully sent file');
-
-        res.status(200).sendFile(path.join(__dirname, '../', 'repositories.json'));
+      return fs.writeFile('../data/repositories.json', jsonArr, 'utf8', () => {
+        res.status(200).sendFile(path.join(__dirname, '../data/', 'repositories.json'));
+        console.log('Successfully sent repositories.json');
       });
-      // return res.status(200).sendFile('repositories.json');
     })
-    .catch((err) => {
-      console.log(err)
-    });
+    .catch(err => console.log(err));
 });
 
+// GET BACKUP REPOSITORIES (LOCAL)
+Router.get('/api/repositories-backup', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../data/', 'repositoryBackup.json'), () => {
+    return console.log('Succssfully sent repositoryBackup.json');
+  });
+});
+
+// GET USER INFORMATION
 Router.get('/api/followers/:userLogin', (req, res) => {
   return request({
     uri: `https://api.github.com/users/${req.params.userLogin}`,
     headers: { 'User-Agent': 'Request-Promise' },
     json: true,
   }).then((response) => {
-    // console.log(response)
     res.send(response);
-  }).catch((error) => {
-    // repoErr = error;
-    console.log(error);
+  }).catch((err) => {
+    const { statusCode } = err;
+
+    return res.end(res.writeHead(statusCode, _parseErr(err), { 'content-type': 'application/json' }));
   });
 });
 
