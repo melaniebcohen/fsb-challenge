@@ -33,9 +33,9 @@ class AvatarCard extends Component {
         </Card>
 
         {modalOpen
-          ? <AvatarModal 
+          ? <AvatarModal
             show={modalOpen}
-            repository={repository} 
+            repository={repository}
             onHide={this.handleClose}/>
           : null}
       </Fragment>

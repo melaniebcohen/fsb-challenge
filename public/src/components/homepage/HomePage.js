@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/lib/Alert';
 import Button from 'react-bootstrap/lib/Button';
+import ReactLoading from 'react-loading';
 import { repositoriesFetchRequest, repositoriesBackupFetchRequest } from '../../actions/repositories-fetch';
 import AvatarList from '../avatar-list/AvatarList';
 import NavBar from '../navbar/NavBar';
@@ -12,6 +13,7 @@ class HomePage extends Component {
     this.state = {
       error: false,
       errorText: '',
+      loading: true,
     };
     this.loadBackup = this.loadBackup.bind(this);
   }
@@ -19,11 +21,15 @@ class HomePage extends Component {
   componentDidMount() {
     return this.props.repositoriesFetch()
       .then((res) => {
+        console.log(res.message)
         if (res.message && res.message.startsWith('API')) {
           this.setState({
+            loading: false,
             error: true,
             errorText: 'API rate limit exceeded for your IP address.',
           });
+        } else {
+          this.setState({ loading: false });
         }
       });
   }
@@ -34,7 +40,18 @@ class HomePage extends Component {
   }
 
   render() {
-    const { error, errorText } = this.state;
+    const { error, errorText, loading } = this.state;
+
+    if (loading) {
+      return (
+        <main>
+          <NavBar />
+          <div className='container-fluid'>
+            <ReactLoading className='spinner' type={'spin'} color={'#33006f'} height={'10%'} />
+          </div>
+        </main>
+      );
+    }
 
     return (
       <main>

@@ -9,7 +9,8 @@ export const repositoriesFetchRequest = () => (dispatch) => {
   return superagent.get('http://localhost:3000/api/repositories')
     .set('Access-Control-Allow-Origin', '*')
     .then((res) => {
-      const arr = res.body.sort((a, b) => {
+      const resText = JSON.parse(res.text);
+      const arr = resText.sort((a, b) => {
         return a.repositoryId - b.repositoryId;
       });
       return dispatch(repositoriesFetch(arr));
@@ -26,6 +27,7 @@ export const repositoriesBackupFetchRequest = () => (dispatch) => {
       const arr = res.body.sort((a, b) => {
         return a.repositoryId - b.repositoryId;
       });
+      console.log(res);
       return dispatch(repositoriesFetch(arr));
     })
     .catch((err) => {
