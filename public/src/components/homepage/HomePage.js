@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/lib/Alert';
-import Button from 'react-bootstrap/lib/Button';
-import { repositoriesFetchRequest, repositoriesBackupFetchRequest } from '../../actions/repositories-fetch';
+import ReactLoading from 'react-loading';
+import { repositoriesFetchRequest } from '../../actions/repositories-fetch';
 import AvatarList from '../avatar-list/AvatarList';
 import NavBar from '../navbar/NavBar';
 
@@ -12,8 +12,8 @@ class HomePage extends Component {
     this.state = {
       error: false,
       errorText: '',
+      loading: true,
     };
-    this.loadBackup = this.loadBackup.bind(this);
   }
 
   componentDidMount() {
@@ -21,20 +21,29 @@ class HomePage extends Component {
       .then((res) => {
         if (res.message && res.message.startsWith('API')) {
           this.setState({
+            loading: false,
             error: true,
             errorText: 'API rate limit exceeded for your IP address.',
           });
+        } else {
+          this.setState({ loading: false });
         }
       });
   }
 
-  loadBackup() {
-    return this.props.repositoriesBackupFetch()
-      .then(() => this.setState({ error: false }));
-  }
-
   render() {
-    const { error, errorText } = this.state;
+    const { error, errorText, loading } = this.state;
+
+    if (loading) {
+      return (
+        <main>
+          <NavBar />
+          <div className='container-fluid'>
+            <ReactLoading className='spinner' type={'spin'} color={'#33006f'} height={'10%'} />
+          </div>
+        </main>
+      );
+    }
 
     return (
       <main>
@@ -42,10 +51,7 @@ class HomePage extends Component {
         <div className='container-fluid'>
           <div className='columns'>
             {error
-              ? <Fragment>
-                  <Alert variant='warning'>{errorText}</Alert>
-                  <Button onClick={this.loadBackup} variant='outline-primary'>Load Local Repositories</Button>
-                </Fragment>
+              ? <Alert variant='warning'>{errorText}</Alert>
               : <AvatarList repositories={this.props.repositories}/>}
           </div>
         </div>
@@ -60,7 +66,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   repositoriesFetch: () => dispatch(repositoriesFetchRequest()),
-  repositoriesBackupFetch: () => dispatch(repositoriesBackupFetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

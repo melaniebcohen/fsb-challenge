@@ -5,7 +5,7 @@
 - [x] Do not query GitHub repositories API directly from the client application.
 - [x] Do not return unnecessary data to the client application.
 - [x] Use Vue, React, or Angular as the client framework.
-- [x] Use Bootstrap for UI components.
+- [x] Use Bootstrap for UI components. _(Note: I used [React-Bootstrap](https://github.com/react-bootstrap/react-bootstrap))_
 - [x] Start with repository 1000.
 - [x] Try to fit as many avatars on one screen as possible. (i.e. Without scrolling.)
 - [x] The application should run on localhost with the “npm start” command.
@@ -24,7 +24,7 @@
 - More robust backend testing
 - Frontend testing
 - Responsive grid layout enhancements
-- UX enhancements (loading icons, etc.)
+- Make tooltip on hover scrollable/more user friendly
 
 ## Front-End App Components
 ```
