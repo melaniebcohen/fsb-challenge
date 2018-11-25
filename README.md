@@ -1,4 +1,4 @@
-## UW Foster School of Busines Challenge Submission</h1>
+## UW Foster School of Business Challenge Submission</h1>
 
 ## Core Goals
 - [x] Use a Node service API to query the GitHub repositories API.
