@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Alert from 'react-bootstrap/lib/Alert';
-import Button from 'react-bootstrap/lib/Button';
 import ReactLoading from 'react-loading';
-import { repositoriesFetchRequest, repositoriesBackupFetchRequest } from '../../actions/repositories-fetch';
+import { repositoriesFetchRequest } from '../../actions/repositories-fetch';
 import AvatarList from '../avatar-list/AvatarList';
 import NavBar from '../navbar/NavBar';
 
@@ -15,13 +14,11 @@ class HomePage extends Component {
       errorText: '',
       loading: true,
     };
-    this.loadBackup = this.loadBackup.bind(this);
   }
 
   componentDidMount() {
     return this.props.repositoriesFetch()
       .then((res) => {
-        console.log(res.message)
         if (res.message && res.message.startsWith('API')) {
           this.setState({
             loading: false,
@@ -32,11 +29,6 @@ class HomePage extends Component {
           this.setState({ loading: false });
         }
       });
-  }
-
-  loadBackup() {
-    return this.props.repositoriesBackupFetch()
-      .then(() => this.setState({ error: false }));
   }
 
   render() {
@@ -59,10 +51,7 @@ class HomePage extends Component {
         <div className='container-fluid'>
           <div className='columns'>
             {error
-              ? <Fragment>
-                  <Alert variant='warning'>{errorText}</Alert>
-                  <Button onClick={this.loadBackup} variant='outline-primary'>Load Local Repositories</Button>
-                </Fragment>
+              ? <Alert variant='warning'>{errorText}</Alert>
               : <AvatarList repositories={this.props.repositories}/>}
           </div>
         </div>
@@ -77,7 +66,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   repositoriesFetch: () => dispatch(repositoriesFetchRequest()),
-  repositoriesBackupFetch: () => dispatch(repositoriesBackupFetchRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

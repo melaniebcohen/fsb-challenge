@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Card from 'react-bootstrap/lib/Card';
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
+import Tooltip from 'react-bootstrap/lib/Tooltip';
 import AvatarModal from '../avatar-modal/AvatarModal';
 
 class AvatarCard extends Component {
@@ -27,10 +29,26 @@ class AvatarCard extends Component {
 
     return (
       <Fragment>
-        <Card onClick={this.handleOpen}>
-          <div id='overlay' />
-          <Card.Img variant='top' src={ownerAvatar} />
-        </Card>
+        {repository.followers
+          ? <OverlayTrigger
+              placement='bottom'
+              overlay={
+                <Tooltip id='tooltip'>
+                  {repository.ownerLogin}'s followers:
+                  <ul>
+                    {repository.followers.map((follower, i) => <li key={i}>{follower}</li>)}
+                  </ul>.
+                </Tooltip>}>
+
+              <Card onClick={this.handleOpen}>
+                <div id='overlay' />
+                <Card.Img variant='top' src={ownerAvatar} />
+              </Card>
+            </OverlayTrigger>
+          : <Card onClick={this.handleOpen}>
+              <div id='overlay' />
+              <Card.Img variant='top' src={ownerAvatar} />
+            </Card>}
 
         {modalOpen
           ? <AvatarModal

@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <Navbar>
       <Navbar.Brand>
-        <img 
+        <img
           alt='UW University of Washington logo'
           src='../../../assets/W-Logo_White.png' />
         {'UW Foster School of Business'}
