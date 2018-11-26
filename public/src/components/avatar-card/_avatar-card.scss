@@ -28,10 +28,11 @@
   .card {
     width: $fullScreenCardWidth;
     height: $fullScreenCardHeight;
+    
+    #overlay {
+      width: $fullScreenCardWidth;
+      height: $fullScreenCardHeight;
+    }
   }
 
-  #overlay {
-    width: $fullScreenCardWidth;
-    height: $fullScreenCardHeight;
-  }
 }
