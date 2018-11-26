@@ -5,6 +5,8 @@ import ReactLoading from 'react-loading';
 import { repositoriesFetchRequest } from '../../actions/repositories-fetch';
 import AvatarList from '../avatar-list/AvatarList';
 import NavBar from '../navbar/NavBar';
+// this._isMounted taken from example here:
+// https://medium.freecodecamp.org/how-to-work-with-react-the-right-way-to-avoid-some-common-pitfalls-fc9eb5e34d9e
 
 class HomePage extends Component {
   constructor(props) {
@@ -14,24 +16,36 @@ class HomePage extends Component {
       errorText: '',
       loading: true,
     };
+    this._isMounted = false;
+    this.fetchRepositories = this.fetchRepositories.bind(this);
   }
 
   componentDidMount() {
+    this._isMounted = true;
+    this.fetchRepositories();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  fetchRepositories() {
     return this.props.repositoriesFetch()
       .then((res) => {
-        if (res.message && res.message.startsWith('API')) {
+        if (this._isMounted && res.message && res.message.startsWith('API')) {
           this.setState({
             loading: false,
             error: true,
             errorText: 'API rate limit exceeded for your IP address.',
           });
-        } else {
+        } else if (this._isMounted) {
           this.setState({ loading: false });
         }
       });
   }
 
   render() {
+    const { repositories } = this.props;
     const { error, errorText, loading } = this.state;
 
     if (loading) {
@@ -52,7 +66,7 @@ class HomePage extends Component {
           <div className='columns'>
             {error
               ? <Alert variant='warning'>{errorText}</Alert>
-              : <AvatarList repositories={this.props.repositories}/>}
+              : <AvatarList repositories={repositories}/>}
           </div>
         </div>
       </main>

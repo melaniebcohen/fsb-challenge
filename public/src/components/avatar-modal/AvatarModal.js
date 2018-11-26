@@ -67,8 +67,7 @@ class AvatarModal extends Component {
                     {user.public_repos
                       ? <li><strong>Public Repos:</strong> {user.public_repos}</li>
                       : null}
-                  </ul>
-                }
+                  </ul>}
               </Col>
             </Row>
           </Container>

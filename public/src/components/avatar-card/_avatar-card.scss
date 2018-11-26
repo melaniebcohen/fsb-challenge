@@ -24,7 +24,7 @@
   }
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 1000px) {
   .card {
     width: $fullScreenCardWidth;
     height: $fullScreenCardHeight;
@@ -34,5 +34,4 @@
       height: $fullScreenCardHeight;
     }
   }
-
 }
