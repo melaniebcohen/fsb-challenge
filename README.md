@@ -21,10 +21,11 @@
 4. Use the `npm run start` script  to run the application
 
 ## Future Enhancements
-- More robust backend testing
+- More robust backend testing with improved coverage and test error handling
 - Frontend testing
-- Responsive grid layout enhancements
-- Make tooltip on hover scrollable/more user friendly
+- Use a grid system for avatars
+- Make tooltip on hover scrollable/more user-friendly; include more than 30 results
+- Additional error handling on both backend and frontend
 
 ## Front-End App Components
 ```
