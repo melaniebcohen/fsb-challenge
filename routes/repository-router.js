@@ -12,8 +12,8 @@ const _parseErr = (err) => {
 
 // Helper function moved outside of call due to async issues
 // _fetchFollowersPromiseArr takes all 'a' or 'A' logins and makes a call to find followers
-// this needs better error handling, but I ran into time constraints
-// Also, this only fetches 30 followers at a time for now
+// This needs better error handling, but I ran into time constraints
+// Also, this only fetches 30 followers at a time for now, but could be improved in future versions
 const _fetchFollowersPromiseArr = (repoArr) => {
   return repoArr.map((repo) => {
     const followers = [];
